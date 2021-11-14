@@ -1,24 +1,26 @@
 
 
-let timerEl = document.getElementById("time");
-
-let questionsEl = document.getElementById("questions");
-
 document.getElementById('start').addEventListener('click', event => {
   document.getElementById("starting").style.display = "none";
 
   let timeLeft = 80;
 
-  let elem = document.getElementById('score');
+  let elem = document.getElementById('time');
 
-  let timerId = setInterval(countdown, 1000);
-
-  timerEl.textContent = time;
+  let time = setInterval(countdown, 1000);
 
   function countdown() {
     if (timeLeft == -1) {
-      clearTimeout(timerId);
-      doSomething();
+      clearTimeout(elem);
+      quizend();
+    } else {
+      elem.innerHTML = timeLeft + ' seconds remaining';
+      timeLeft--;
     }
-  })
+    function quizend() {
+      // stop timer
+      clearInterval(elem);
+    }
+  }
 
+})
