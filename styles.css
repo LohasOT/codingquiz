@@ -29,3 +29,12 @@ h1, p {
   border-radius: 5px;
   padding: 2px 10px;
 }
+
+.btn {
+  background-color: #70A9A1;
+}
+
+.quest {
+  background-color: #CFD7C7;
+  margin: 15px
+}

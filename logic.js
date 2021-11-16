@@ -33,31 +33,33 @@ const questions = [
     answer: "console.log"
   }
 ];
-let timeLeft = 30;
+
+let timeLeft = 50;
 
 let elem = document.getElementById('time');
 
 let time = setInterval(countdown, 1000);
 
-
 function countdown() {
-  if (timeLeft == -1) {
+  if (timeLeft === 0) {
     clearTimeout(elem);
     quizend();
   } else {
     elem.innerHTML = timeLeft + ' seconds remaining';
     timeLeft--;
   }
-  function quizend() {
-    // stop timer
-    clearInterval(elem);
-  }
 }
+function quizend() {
+  // stop timer
+  clearInterval(elem);
 
-// document.getElementById('questions').innerHTML = ''
+}
+function onchoice(event) {
+  if (event.target.innerHTML == (questions[0].answer)) { nextquestion() }
+  else if (event.target.innerHTML !== (questions[0].answer)) { timeLeft -= 15; } { nextquestion() }
+}
+const newquiz = () => {
 
-
-document.getElementById('start').addEventListener('click', event => {
   document.getElementById("start").style.display = "none";
 
   document.getElementById('questions').append(questions[0].title);
@@ -65,13 +67,49 @@ document.getElementById('start').addEventListener('click', event => {
   for (let i = 0; i < questions[0].choices.length; i++) {
     let questionnn = document.createElement('div')
 
+    questionnn.addEventListener('click', onchoice)
+
     questionnn.innerHTML = `
 
-     <button>${questions[0].choices[i]}</button>
+     <button class="btn">${questions[0].choices[i]}</button>
 
      <hr>
      `
     document.getElementById('answer').append(questionnn)
   }
+}
+
+function nextquestion() {
+  document.getElementById('answer').innerHTML = ""
+
+  document.getElementById('questions').innerHTML = "";
+
+  document.getElementById('questions').append(questions[1].title);
+
+
+  for (let i = 0; i < questions[1].choices.length; i++) {
+
+    let questionnn = document.createElement('div')
+
+    questionnn.addEventListener('click', onchoice)
+
+    questionnn.innerHTML = `
+
+     <button class="btn">${questions[1].choices[i]}</button>
+
+     <hr>
+     `
+    document.getElementById('answer').append(questionnn)
+
+  }
+}
+document.getElementById('start').addEventListener('click', event => {
+
+  document.getElementById("start").style.display = "none";
+
+  countdown()
+
+  newquiz()
 
 })
+
