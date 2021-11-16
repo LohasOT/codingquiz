@@ -53,24 +53,19 @@ function countdown() {
   }
 }
 
-document.getElementById('questions').innerHTML = ''
+// document.getElementById('questions').innerHTML = ''
 
 
 document.getElementById('start').addEventListener('click', event => {
-  document.getElementById("starting").style.display = "none";
+  document.getElementById("start").style.display = "none";
 
-  let itemElem = document.createElement('div')
-  itemElem.innerHTML = `
-    <div class ="col"> 
-    <div> ${questions[0].title}</div>
-    <div> ${questions.choices}</div>
-    <div> ${questions[0].answer}
-    </div>`
+  for (let i = 0; i < questions[0].choices.length; i++) {
+    let questionnn = document.createElement('button')
 
-
-
-
-
+    title.innerHTML = `${questions[0].title}`
+    questionnn.innerHTML = `${questions[0].choices[i]}`
+    document.getElementById('questions').append(questionnn)
+  }
 
 
 })
