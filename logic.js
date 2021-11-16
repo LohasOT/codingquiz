@@ -1,5 +1,5 @@
 // list of all questions, choices, and answers
-let questions = [
+const questions = [
   {
     title: "Commonly used data types DO NOT include:",
     choices: ["strings", "booleans", "alerts", "numbers"],
@@ -39,6 +39,7 @@ let elem = document.getElementById('time');
 
 let time = setInterval(countdown, 1000);
 
+
 function countdown() {
   if (timeLeft == -1) {
     clearTimeout(elem);
@@ -59,13 +60,18 @@ function countdown() {
 document.getElementById('start').addEventListener('click', event => {
   document.getElementById("start").style.display = "none";
 
+  document.getElementById('questions').append(questions[0].title);
+
   for (let i = 0; i < questions[0].choices.length; i++) {
-    let questionnn = document.createElement('button')
+    let questionnn = document.createElement('div')
 
-    title.innerHTML = `${questions[0].title}`
-    questionnn.innerHTML = `${questions[0].choices[i]}`
-    document.getElementById('questions').append(questionnn)
+    questionnn.innerHTML = `
+
+     <button>${questions[0].choices[i]}</button>
+
+     <hr>
+     `
+    document.getElementById('answer').append(questionnn)
   }
-
 
 })
