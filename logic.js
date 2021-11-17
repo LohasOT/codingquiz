@@ -25,12 +25,6 @@ const questions = [
       "String values must be enclosed within ____ when being assigned to variables.",
     choices: ["commas", "curly brackets", "quotes", "parentheses"],
     answer: "quotes"
-  },
-  {
-    title:
-      "A very useful tool used during development and debugging for printing content to the debugger is:",
-    choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
-    answer: "console.log"
   }
 ];
 let elem = document.getElementById('time');
@@ -58,25 +52,74 @@ function quizend() {
 
 }
 function onchoice(event) {
+
   if (event.target.innerHTML == (questions[0].answer)) {
 
     feedback.textContent = "Right!";
 
     nextquestion();
+
   } else {
-    (event.target.innerHTML !== (questions[0].answer))
 
     time -= 15;
 
     feedback.textContent = "Wrong!";
   }
 
-
   nextquestion();
 }
 function onchoice2(event) {
-  if (event.target.innerHTML == (questions[1].answer)) { next2question() }
-  else if (event.target.innerHTML !== (questions[1].answer)) { time -= 15; } { next2question() }
+
+  if (event.target.innerHTML == (questions[1].answer)) {
+
+    feedback.textContent = "Right!";
+
+    next2question();
+
+  } else {
+
+    time -= 15;
+
+    feedback.textContent = "Wrong!";
+  }
+
+  next2question();
+}
+
+function onchoice3(event) {
+
+  if (event.target.innerHTML == (questions[2].answer)) {
+
+    feedback.textContent = "Right!";
+
+    next3question();
+
+  } else {
+
+    time -= 15;
+
+    feedback.textContent = "Wrong!";
+  }
+
+  next3question();
+}
+
+function onchoice4(event) {
+
+  if (event.target.innerHTML == (questions[3].answer)) {
+
+    feedback.textContent = "Right!";
+
+    next4question();
+
+  } else {
+
+    time -= 15;
+
+    feedback.textContent = "Wrong!";
+  }
+
+  next4question();
 }
 const newquiz = () => {
 
@@ -137,11 +180,36 @@ function next2question() {
 
     let questionnn = document.createElement('div')
 
-    questionnn.addEventListener('click', onchoice2)
+    questionnn.addEventListener('click', onchoice3)
 
     questionnn.innerHTML = `
 
      <button class="btn">${questions[2].choices[i]}</button>
+
+     <hr>
+     `
+    document.getElementById('answer').append(questionnn)
+
+  }
+}
+function next3question() {
+
+  document.getElementById('answer').innerHTML = ""
+
+  document.getElementById('questions').innerHTML = "";
+
+  document.getElementById('questions').append(questions[3].title);
+
+
+  for (let i = 0; i < questions[3].choices.length; i++) {
+
+    let questionnn = document.createElement('div')
+
+    questionnn.addEventListener('click', onchoice4)
+
+    questionnn.innerHTML = `
+
+     <button class="btn">${questions[3].choices[i]}</button>
 
      <hr>
      `
