@@ -27,118 +27,97 @@ const questions = [
     answer: "quotes"
   }
 ];
+
 // declaring elements
+let currentquestionindex = 0
+
 let elem = document.getElementById('time');
 
 let time = 50;
 
 let feedback = document.getElementById('feedback');
+
+let input = document.getElementById('input');
+
+let submitscore = document.getElementById('submitscore');
+
+let score = document.getElementById('score')
+
+submitscore.addEventListener("click", event => {
+  event.preventDefault()
+  document.getElementById('name').value
+})
+
 // timer function
+
+let timer
+
 function starttimer() {
 
-  let time = setInterval(countdown, 1000);
+  timer = setInterval(countdown, 1000);
 }
 function countdown() {
+  console.log(time)
   if (time === 0) {
-    clearInterval(elem);
+    clearInterval(timer);
     quizend();
   } else {
     elem.innerHTML = time + ' seconds remaining';
     time--;
   }
 }
-function quizend() {
-  // stop timer
-  clearInterval(elem);
-
-}
-// function for when click on right or wrong answers
-function onchoice(event) {
-
-  if (event.target.innerHTML == (questions[0].answer)) {
+function checkanswer(event) {
+  if (event.target.innerHTML == (questions[currentquestionindex].answer)) {
 
     feedback.textContent = "Right!";
 
     nextquestion();
 
   } else {
+    if (time - 15 <= 0) {
+      time = 0
 
-    time -= 15;
+      elem.innerHTML = time + ' seconds remaining';
+      quizend();
+    } else { time -= 15; }
 
     feedback.textContent = "Wrong!";
   }
 
   nextquestion();
+
 }
-// function for when click on right or wrong answers question 2
-function onchoice2(event) {
+function quizend() {
+  // stop timer
+  clearInterval(timer);
 
-  if (event.target.innerHTML == (questions[1].answer)) {
+  document.getElementById('answer').innerHTML = ""
 
-    feedback.textContent = "Right!";
+  document.getElementById('questions').innerHTML = "";
 
-    next2question();
+  input.style.display = "block"
 
-  } else {
+  submitscore.style.display = "block"
 
-    time -= 15;
+  score.style.display = "block"
 
-    feedback.textContent = "Wrong!";
-  }
-
-  next2question();
 }
-// function for when click on right or wrong answers question 3
-function onchoice3(event) {
 
-  if (event.target.innerHTML == (questions[2].answer)) {
-
-    feedback.textContent = "Right!";
-
-    next3question();
-
-  } else {
-
-    time -= 15;
-
-    feedback.textContent = "Wrong!";
-  }
-
-  next3question();
-}
-// function for when click on right or wrong answers question 4
-function onchoice4(event) {
-
-  if (event.target.innerHTML == (questions[3].answer)) {
-
-    feedback.textContent = "Right!";
-
-    next4question();
-
-  } else {
-
-    time -= 15;
-
-    feedback.textContent = "Wrong!";
-  }
-
-  next4question();
-}
 // starting the quiz
 const newquiz = () => {
 
   document.getElementById("start").style.display = "none";
 
-  document.getElementById('questions').append(questions[0].title);
+  document.getElementById('questions').append(questions[currentquestionindex].title);
 
-  for (let i = 0; i < questions[0].choices.length; i++) {
+  for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
     let questionnn = document.createElement('div')
 
-    questionnn.addEventListener('click', onchoice)
+    questionnn.addEventListener('click', checkanswer)
 
     questionnn.innerHTML = `
 
-     <button class="btn">${questions[0].choices[i]}</button>
+     <button class="btn">${questions[currentquestionindex].choices[i]}</button>
 
      <hr>
      `
@@ -152,18 +131,20 @@ function nextquestion() {
 
   document.getElementById('questions').innerHTML = "";
 
-  document.getElementById('questions').append(questions[1].title);
+  currentquestionindex++
+
+  document.getElementById('questions').append(questions[currentquestionindex].title);
 
 
-  for (let i = 0; i < questions[1].choices.length; i++) {
+  for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
 
     let questionnn = document.createElement('div')
 
-    questionnn.addEventListener('click', onchoice2)
+    questionnn.addEventListener('click', checkanswer)
 
     questionnn.innerHTML = `
 
-     <button class="btn">${questions[1].choices[i]}</button>
+     <button class="btn">${questions[currentquestionindex].choices[i]}</button>
 
      <hr>
      `
@@ -171,56 +152,7 @@ function nextquestion() {
 
   }
 }
-function next2question() {
 
-  document.getElementById('answer').innerHTML = ""
-
-  document.getElementById('questions').innerHTML = "";
-
-  document.getElementById('questions').append(questions[2].title);
-
-
-  for (let i = 0; i < questions[2].choices.length; i++) {
-
-    let questionnn = document.createElement('div')
-
-    questionnn.addEventListener('click', onchoice3)
-
-    questionnn.innerHTML = `
-
-     <button class="btn">${questions[2].choices[i]}</button>
-
-     <hr>
-     `
-    document.getElementById('answer').append(questionnn)
-
-  }
-}
-function next3question() {
-
-  document.getElementById('answer').innerHTML = ""
-
-  document.getElementById('questions').innerHTML = "";
-
-  document.getElementById('questions').append(questions[3].title);
-
-
-  for (let i = 0; i < questions[3].choices.length; i++) {
-
-    let questionnn = document.createElement('div')
-
-    questionnn.addEventListener('click', onchoice4)
-
-    questionnn.innerHTML = `
-
-     <button class="btn">${questions[3].choices[i]}</button>
-
-     <hr>
-     `
-    document.getElementById('answer').append(questionnn)
-
-  }
-}
 // starting the quiz when clicked on start button
 document.getElementById('start').addEventListener('click', event => {
 
