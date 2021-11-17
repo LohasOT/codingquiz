@@ -27,12 +27,13 @@ const questions = [
     answer: "quotes"
   }
 ];
+// declaring elements
 let elem = document.getElementById('time');
 
 let time = 50;
 
 let feedback = document.getElementById('feedback');
-
+// timer function
 function starttimer() {
 
   let time = setInterval(countdown, 1000);
@@ -51,6 +52,7 @@ function quizend() {
   clearInterval(elem);
 
 }
+// function for when click on right or wrong answers
 function onchoice(event) {
 
   if (event.target.innerHTML == (questions[0].answer)) {
@@ -68,6 +70,7 @@ function onchoice(event) {
 
   nextquestion();
 }
+// function for when click on right or wrong answers question 2
 function onchoice2(event) {
 
   if (event.target.innerHTML == (questions[1].answer)) {
@@ -85,7 +88,7 @@ function onchoice2(event) {
 
   next2question();
 }
-
+// function for when click on right or wrong answers question 3
 function onchoice3(event) {
 
   if (event.target.innerHTML == (questions[2].answer)) {
@@ -103,7 +106,7 @@ function onchoice3(event) {
 
   next3question();
 }
-
+// function for when click on right or wrong answers question 4
 function onchoice4(event) {
 
   if (event.target.innerHTML == (questions[3].answer)) {
@@ -121,6 +124,7 @@ function onchoice4(event) {
 
   next4question();
 }
+// starting the quiz
 const newquiz = () => {
 
   document.getElementById("start").style.display = "none";
@@ -141,7 +145,7 @@ const newquiz = () => {
     document.getElementById('answer').append(questionnn)
   }
 }
-
+// getting next question function
 function nextquestion() {
 
   document.getElementById('answer').innerHTML = ""
@@ -217,6 +221,7 @@ function next3question() {
 
   }
 }
+// starting the quiz when clicked on start button
 document.getElementById('start').addEventListener('click', event => {
 
   document.getElementById("start").style.display = "none";
