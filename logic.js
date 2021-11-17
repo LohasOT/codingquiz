@@ -111,17 +111,17 @@ const newquiz = () => {
   document.getElementById('questions').append(questions[currentquestionindex].title);
 
   for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
-    let questionnn = document.createElement('div')
+    let questionspace = document.createElement('div')
 
-    questionnn.addEventListener('click', checkanswer)
+    questionspace.addEventListener('click', checkanswer)
 
-    questionnn.innerHTML = `
+    questionspace.innerHTML = `
 
      <button class="btn">${questions[currentquestionindex].choices[i]}</button>
 
      <hr>
      `
-    document.getElementById('answer').append(questionnn)
+    document.getElementById('answer').append(questionspace)
   }
 }
 // getting next question function
@@ -138,17 +138,17 @@ function nextquestion() {
 
   for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
 
-    let questionnn = document.createElement('div')
+    let questionspace = document.createElement('div')
 
-    questionnn.addEventListener('click', checkanswer)
+    questionspace.addEventListener('click', checkanswer)
 
-    questionnn.innerHTML = `
+    questionspace.innerHTML = `
 
      <button class="btn">${questions[currentquestionindex].choices[i]}</button>
 
      <hr>
      `
-    document.getElementById('answer').append(questionnn)
+    document.getElementById('answer').append(questionspace)
 
   }
 }
