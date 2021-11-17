@@ -29,7 +29,7 @@ const questions = [
 ];
 
 // declaring elements
-let currentquestionindex = 0
+let currentQuestionIndex = 0
 
 let elem = document.getElementById('time');
 
@@ -57,7 +57,7 @@ function starttimer() {
   timer = setInterval(countdown, 1000);
 }
 function countdown() {
-  console.log(time)
+
   if (time === 0) {
     clearInterval(timer);
     quizend();
@@ -67,18 +67,22 @@ function countdown() {
   }
 }
 function checkanswer(event) {
-  if (event.target.innerHTML == (questions[currentquestionindex].answer)) {
+
+  if (event.target.innerHTML == questions[currentQuestionIndex].answer) {
 
     feedback.textContent = "Right!";
 
-    nextquestion();
+    // nextquestion();
+
 
   } else {
     if (time - 15 <= 0) {
       time = 0
 
       elem.innerHTML = time + ' seconds remaining';
+
       quizend();
+
     } else { time -= 15; }
 
     feedback.textContent = "Wrong!";
@@ -108,16 +112,16 @@ const newquiz = () => {
 
   document.getElementById("start").style.display = "none";
 
-  document.getElementById('questions').append(questions[currentquestionindex].title);
+  document.getElementById('questions').append(questions[currentQuestionIndex].title);
 
-  for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
+  for (let i = 0; i < questions[currentQuestionIndex].choices.length; i++) {
     let questionspace = document.createElement('div')
 
     questionspace.addEventListener('click', checkanswer)
 
     questionspace.innerHTML = `
 
-     <button class="btn">${questions[currentquestionindex].choices[i]}</button>
+     <button class="btn">${questions[currentQuestionIndex].choices[i]}</button>
 
      <hr>
      `
@@ -131,25 +135,40 @@ function nextquestion() {
 
   document.getElementById('questions').innerHTML = "";
 
-  currentquestionindex++
+  currentQuestionIndex++
 
-  document.getElementById('questions').append(questions[currentquestionindex].title);
+  console.log(currentQuestionIndex)
+  if (currentQuestionIndex == 4) {
 
+    quizend();
+  }
 
-  for (let i = 0; i < questions[currentquestionindex].choices.length; i++) {
+  document.getElementById('questions').append(questions[currentQuestionIndex].title);
 
-    let questionspace = document.createElement('div')
+  if (currentQuestionIndex == 4) {
 
-    questionspace.addEventListener('click', checkanswer)
+    quizend();
+  }
+  else {
+    for (let i = 0; i < questions[currentQuestionIndex].choices.length; i++) {
 
-    questionspace.innerHTML = `
+      let questionspace = document.createElement('div')
 
-     <button class="btn">${questions[currentquestionindex].choices[i]}</button>
+      questionspace.addEventListener('click', checkanswer)
+
+      questionspace.innerHTML = `
+
+     <button class="btn">${questions[currentQuestionIndex].choices[i]}</button>
 
      <hr>
      `
-    document.getElementById('answer').append(questionspace)
+      document.getElementById('answer').append(questionspace)
 
+      if (currentQuestionIndex == 5) {
+
+        quizend()
+      }
+    }
   }
 }
 
