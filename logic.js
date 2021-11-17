@@ -33,20 +33,23 @@ const questions = [
     answer: "console.log"
   }
 ];
-
-let timeLeft = 50;
-
 let elem = document.getElementById('time');
 
-let time = setInterval(countdown, 1000);
+let time = 50;
 
+let feedback = document.getElementById('feedback');
+
+function starttimer() {
+
+  let time = setInterval(countdown, 1000);
+}
 function countdown() {
-  if (timeLeft === 0) {
-    clearTimeout(elem);
+  if (time === 0) {
+    clearInterval(elem);
     quizend();
   } else {
-    elem.innerHTML = timeLeft + ' seconds remaining';
-    timeLeft--;
+    elem.innerHTML = time + ' seconds remaining';
+    time--;
   }
 }
 function quizend() {
@@ -55,8 +58,25 @@ function quizend() {
 
 }
 function onchoice(event) {
-  if (event.target.innerHTML == (questions[0].answer)) { nextquestion() }
-  else if (event.target.innerHTML !== (questions[0].answer)) { timeLeft -= 15; } { nextquestion() }
+  if (event.target.innerHTML == (questions[0].answer)) {
+
+    feedback.textContent = "Right!";
+
+    nextquestion();
+  } else {
+    (event.target.innerHTML !== (questions[0].answer))
+
+    time -= 15;
+
+    feedback.textContent = "Wrong!";
+  }
+
+
+  nextquestion();
+}
+function onchoice2(event) {
+  if (event.target.innerHTML == (questions[1].answer)) { next2question() }
+  else if (event.target.innerHTML !== (questions[1].answer)) { time -= 15; } { next2question() }
 }
 const newquiz = () => {
 
@@ -80,6 +100,7 @@ const newquiz = () => {
 }
 
 function nextquestion() {
+
   document.getElementById('answer').innerHTML = ""
 
   document.getElementById('questions').innerHTML = "";
@@ -91,7 +112,7 @@ function nextquestion() {
 
     let questionnn = document.createElement('div')
 
-    questionnn.addEventListener('click', onchoice)
+    questionnn.addEventListener('click', onchoice2)
 
     questionnn.innerHTML = `
 
@@ -103,9 +124,36 @@ function nextquestion() {
 
   }
 }
+function next2question() {
+
+  document.getElementById('answer').innerHTML = ""
+
+  document.getElementById('questions').innerHTML = "";
+
+  document.getElementById('questions').append(questions[2].title);
+
+
+  for (let i = 0; i < questions[2].choices.length; i++) {
+
+    let questionnn = document.createElement('div')
+
+    questionnn.addEventListener('click', onchoice2)
+
+    questionnn.innerHTML = `
+
+     <button class="btn">${questions[2].choices[i]}</button>
+
+     <hr>
+     `
+    document.getElementById('answer').append(questionnn)
+
+  }
+}
 document.getElementById('start').addEventListener('click', event => {
 
   document.getElementById("start").style.display = "none";
+
+  starttimer()
 
   countdown()
 
