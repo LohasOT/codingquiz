@@ -40,3 +40,26 @@ You are required to submit the following for review:
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+### Name
+
+Coding Quiz
+
+### Description
+
+This quiz has 4 questions when you choose the wrong question you time will get substracted by 15 seconds. The more time you have the higher your score.
+
+### Link to Deployed Repo
+
+https://lohasot.github.io/codingquiz/index.html
+
+### Visuals
+
+<img src="https://user-images.githubusercontent.com/91640571/142345912-760b2202-acd4-4622-9c67-3e8fc41490a6.jpg">
+
+<img src="https://user-images.githubusercontent.com/91640571/142345913-9a7d640e-43e7-4c24-a38a-094c317c7dd2.jpg">
+
+<img src="https://user-images.githubusercontent.com/91640571/142345915-3296109c-c5eb-4bb9-a1fe-ffbc25d650d8.jpg">
+
+<img src="https://user-images.githubusercontent.com/91640571/142345917-ceb0dc12-ca23-4d74-937e-698ffa7a3b15.jpg">
+
