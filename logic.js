@@ -29,6 +29,8 @@ const questions = [
 ];
 
 // declaring elements
+let initialbox = document.getElementById('name')
+
 let currentQuestionIndex = 0
 
 let elem = document.getElementById('time');
@@ -40,8 +42,6 @@ let feedback = document.getElementById('feedback');
 let input = document.getElementById('input');
 
 let submitscore = document.getElementById('submitscore');
-
-let score = document.getElementById('score')
 
 submitscore.addEventListener("click", event => {
   event.preventDefault()
@@ -66,15 +66,16 @@ function countdown() {
     time--;
   }
 }
+// checking answer right or wrong
 function checkanswer(event) {
-
+  // if right
   if (event.target.innerHTML == questions[currentQuestionIndex].answer) {
 
     feedback.textContent = "Right!";
 
     // nextquestion();
 
-
+    // if wrong
   } else {
     if (time - 15 <= 0) {
       time = 0
@@ -91,6 +92,7 @@ function checkanswer(event) {
   nextquestion();
 
 }
+// ending the quiz 
 function quizend() {
   // stop timer
   clearInterval(timer);
@@ -105,15 +107,16 @@ function quizend() {
 
   score.style.display = "block"
 
+  document.getElementById('score').append(time);
 }
 
 // starting the quiz
 const newquiz = () => {
 
   document.getElementById("start").style.display = "none";
-
+  // populating question 1
   document.getElementById('questions').append(questions[currentQuestionIndex].title);
-
+  // populating answers
   for (let i = 0; i < questions[currentQuestionIndex].choices.length; i++) {
     let questionspace = document.createElement('div')
 
@@ -136,8 +139,8 @@ function nextquestion() {
   document.getElementById('questions').innerHTML = "";
 
   currentQuestionIndex++
+  // if out of question
 
-  console.log(currentQuestionIndex)
   if (currentQuestionIndex == 4) {
 
     quizend();
@@ -145,7 +148,7 @@ function nextquestion() {
 
   document.getElementById('questions').append(questions[currentQuestionIndex].title);
 
-  if (currentQuestionIndex == 4) {
+  if (currentQuestionIndex === questions.length) {
 
     quizend();
   }
@@ -164,13 +167,46 @@ function nextquestion() {
      `
       document.getElementById('answer').append(questionspace)
 
-      if (currentQuestionIndex == 5) {
+      if (currentQuestionIndex === questions.length) {
 
         quizend()
       }
     }
   }
 }
+function saveHighscore() {
+  // get value of input box
+  let name = initialbox.value.trim();
+
+  // make sure value wasn't empty
+  if (name !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    let highscores =
+      JSON.parse(window.localStorage.getItem("highscores")) || [];
+
+    // format new score object for current user
+    let newScore = {
+      score: time,
+      name: name
+    };
+
+    // save to localstorage
+    highscores.push(newScore);
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    // redirect to next page
+    window.location.href = "highscores.html";
+  }
+}
+function checkForEnter(event) {
+  // "13" represents the enter key
+  if (event.key === "Enter") {
+    saveHighscore();
+  }
+}
+
+// user clicks button to submit initials
+submitscore.onclick = saveHighscore;
 
 // starting the quiz when clicked on start button
 document.getElementById('start').addEventListener('click', event => {

@@ -22,20 +22,21 @@
     <p>Try to answer the following code-related questions within the time
         limit. Keep in mind that incorrect answers will penalize your
         score/time by ten seconds!</p>
+    <div class="viewscores"><a href="highscores.html">View Highscores</a></div>
     <div class="timer">Time: <span id="time">0</span></div>
 
     <div class="row">
       <div id="starting" class="col">
         <button id="start" class="start">Start Quiz</button>
-        <div class="score" id="score" style="display: none;">Score:<span>0</span></div>
+        <div class="score" id="score" style="display: none;">Score:<span></span></div>
         <div class="feedback"><span id="feedback"></span></div>
         <div><button id="highscores" class="highscored" style="display: none;">Highscores</button></div>
-        <div>
-          <form id="input" style ="display: none;"><input id="name" placeholder="Your Initial"></form>
-          <button id= "submitscore" style ="display: none;">Submit</button>
+        <div id="scoringboard" class="col">
+          <form class="form1" id="input" style ="display: none;"><input id="name" placeholder="Your Initials"></form>
+          <button class="btn1" id= "submitscore" style ="display: none;">Submit</button>
         </div>
       </div>
-      <div class="col">
+      <div id="questionbox" class="col">
         <div id="row" class="list-group">
           <div id="questions" class="quest"></div>
           <div id="answer"></div>
