@@ -174,30 +174,30 @@ function nextquestion() {
     }
   }
 }
-function saveHighscore() {
-  // get value of input box
-  let name = initialbox.value.trim();
+// function saveHighscore() {
+//   // get value of input box
+//   let name = initialbox.value;
 
-  // make sure value wasn't empty
-  if (name !== "") {
-    // get saved scores from localstorage, or if not any, set to empty array
-    let highscores =
-      JSON.parse(window.localStorage.getItem("highscores")) || [];
+//   // make sure value wasn't empty
+//   if (name !== "") {
+//     // get saved scores from localstorage, or if not any, set to empty array
+//     let highscores =
+//       JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-    // format new score object for current user
-    let newScore = {
-      score: time,
-      name: name
-    };
+//     // format new score object for current user
+//     let newScore = {
+//       score: time,
+//       name: name
+//     };
 
-    // save to localstorage
-    highscores.push(newScore);
-    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+//     // save to localstorage
+//     highscores.push(newScore);
+//     window.localStorage.setItem("highscores", JSON.stringify(highscores));
 
-    // redirect to next page
-    window.location.href = "highscores.html";
-  }
-}
+//     // redirect to next page
+//     window.location.href = "highscores.html";
+//   }
+// }
 function checkForEnter(event) {
   // "13" represents the enter key
   if (event.key === "Enter") {
@@ -205,8 +205,8 @@ function checkForEnter(event) {
   }
 }
 
-// user clicks button to submit initials
-submitscore.onclick = saveHighscore;
+// // user clicks button to submit initials
+// submitscore.onclick = saveHighscore;
 
 // starting the quiz when clicked on start button
 document.getElementById('start').addEventListener('click', event => {
@@ -221,3 +221,27 @@ document.getElementById('start').addEventListener('click', event => {
 
 })
 
+document.getElementById('submitscore').addEventListener('click', event => {
+
+  let name = initialbox.value
+
+  // make sure value wasn't empty
+  if (name !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    let highscores =
+      JSON.parse(localStorage.getItem("highscores")) || [];
+
+    // format new score object for current user
+    let newScore = {
+      score: time,
+      name: name
+    };
+
+    // save to localstorage
+    highscores.push(newScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    // redirect to next page
+    window.location.href = "highscores.html";
+  }
+})
