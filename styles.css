@@ -15,6 +15,12 @@ h1, p {
   background-color: #E9EDDE;
   display: grid;
 }
+.container2{
+  width: 50%;
+  height: 100%;
+  background-color: #E9EDDE;
+  display: grid;
+}
 
 .timer {
   text-align: center;
@@ -37,4 +43,41 @@ h1, p {
 .quest {
   background-color: #CFD7C7;
   margin: 15px
+}
+
+.btn1 {
+  background-color: #70A9A1;
+}
+
+#scoringboard {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+#highscores{
+  text-align: center;
+}
+.feedback {
+  font-size: 25px;
+  text-align: center;
+}
+
+.score {
+  font-size: 25px;
+  text-align: center;
+}
+
+.btn2 {
+  width: 100%;
+  background-color: #70A9A1;
+  margin-left: auto;
+  margin-right: auto;
+}
+.viewscores {
+  text-align: center;
+  font-size: 25px;
+}
+.start {
+  background-color: #70A9A1;
+  font-size: 25px;
 }

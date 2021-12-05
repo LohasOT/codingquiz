@@ -27,122 +27,110 @@ const questions = [
     answer: "quotes"
   }
 ];
+
 // declaring elements
+let initialbox = document.getElementById('name')
+
+let currentQuestionIndex = 0
+
 let elem = document.getElementById('time');
 
 let time = 50;
 
 let feedback = document.getElementById('feedback');
+
+let input = document.getElementById('input');
+
+let submitscore = document.getElementById('submitscore');
+
+submitscore.addEventListener("click", event => {
+  event.preventDefault()
+  document.getElementById('name').value
+})
+
 // timer function
+
+let timer
+
 function starttimer() {
 
-  let time = setInterval(countdown, 1000);
+  timer = setInterval(countdown, 1000);
 }
 function countdown() {
+
   if (time === 0) {
-    clearInterval(elem);
+    clearInterval(timer);
     quizend();
   } else {
     elem.innerHTML = time + ' seconds remaining';
     time--;
   }
 }
-function quizend() {
-  // stop timer
-  clearInterval(elem);
-
-}
-// function for when click on right or wrong answers
-function onchoice(event) {
-
-  if (event.target.innerHTML == (questions[0].answer)) {
+// checking answer right or wrong
+function checkanswer(event) {
+  // if right
+  if (event.target.innerHTML == questions[currentQuestionIndex].answer) {
 
     feedback.textContent = "Right!";
 
-    nextquestion();
+    // nextquestion();
 
+    // if wrong
   } else {
+    if (time - 15 <= 0) {
+      time = 0
 
-    time -= 15;
+      elem.innerHTML = time + ' seconds remaining';
+
+      quizend();
+
+    } else { time -= 15; }
 
     feedback.textContent = "Wrong!";
   }
 
   nextquestion();
+
 }
-// function for when click on right or wrong answers question 2
-function onchoice2(event) {
+// ending the quiz 
+function quizend() {
+  // stop timer
+  clearInterval(timer);
 
-  if (event.target.innerHTML == (questions[1].answer)) {
+  document.getElementById('answer').innerHTML = ""
 
-    feedback.textContent = "Right!";
+  document.getElementById('questions').innerHTML = "";
 
-    next2question();
+  input.style.display = "block"
 
-  } else {
+  submitscore.style.display = "block"
 
-    time -= 15;
+  score.style.display = "block"
 
-    feedback.textContent = "Wrong!";
-  }
+  feedback.style.display = "none"
 
-  next2question();
+  document.getElementById('score').append(time);
 }
-// function for when click on right or wrong answers question 3
-function onchoice3(event) {
 
-  if (event.target.innerHTML == (questions[2].answer)) {
-
-    feedback.textContent = "Right!";
-
-    next3question();
-
-  } else {
-
-    time -= 15;
-
-    feedback.textContent = "Wrong!";
-  }
-
-  next3question();
-}
-// function for when click on right or wrong answers question 4
-function onchoice4(event) {
-
-  if (event.target.innerHTML == (questions[3].answer)) {
-
-    feedback.textContent = "Right!";
-
-    next4question();
-
-  } else {
-
-    time -= 15;
-
-    feedback.textContent = "Wrong!";
-  }
-
-  next4question();
-}
 // starting the quiz
 const newquiz = () => {
 
   document.getElementById("start").style.display = "none";
+  // populating question 1
+  document.getElementById('questions').append(questions[currentQuestionIndex].title);
+  // populating answers
+  for (let i = 0; i < questions[currentQuestionIndex].choices.length; i++) {
+    let questionspace = document.createElement('div')
 
-  document.getElementById('questions').append(questions[0].title);
+    questionspace.addEventListener('click', checkanswer)
 
-  for (let i = 0; i < questions[0].choices.length; i++) {
-    let questionnn = document.createElement('div')
+    questionspace.innerHTML = `
 
-    questionnn.addEventListener('click', onchoice)
-
-    questionnn.innerHTML = `
-
-     <button class="btn">${questions[0].choices[i]}</button>
+     <button class="btn">${questions[currentQuestionIndex].choices[i]}</button>
 
      <hr>
      `
-    document.getElementById('answer').append(questionnn)
+    document.getElementById('answer').append(questionspace)
   }
 }
 // getting next question function
@@ -152,75 +140,50 @@ function nextquestion() {
 
   document.getElementById('questions').innerHTML = "";
 
-  document.getElementById('questions').append(questions[1].title);
+  currentQuestionIndex++
+  // if out of question
 
+  if (currentQuestionIndex == 4) {
 
-  for (let i = 0; i < questions[1].choices.length; i++) {
+    quizend();
+  }
 
-    let questionnn = document.createElement('div')
+  document.getElementById('questions').append(questions[currentQuestionIndex].title);
 
-    questionnn.addEventListener('click', onchoice2)
+  if (currentQuestionIndex === questions.length) {
 
-    questionnn.innerHTML = `
+    quizend();
+  }
+  else {
+    for (let i = 0; i < questions[currentQuestionIndex].choices.length; i++) {
 
-     <button class="btn">${questions[1].choices[i]}</button>
+      let questionspace = document.createElement('div')
+
+      questionspace.addEventListener('click', checkanswer)
+
+      questionspace.innerHTML = `
+
+     <button class="btn">${questions[currentQuestionIndex].choices[i]}</button>
 
      <hr>
      `
-    document.getElementById('answer').append(questionnn)
+      document.getElementById('answer').append(questionspace)
 
+      if (currentQuestionIndex === questions.length) {
+
+        quizend()
+      }
+    }
   }
 }
-function next2question() {
 
-  document.getElementById('answer').innerHTML = ""
-
-  document.getElementById('questions').innerHTML = "";
-
-  document.getElementById('questions').append(questions[2].title);
-
-
-  for (let i = 0; i < questions[2].choices.length; i++) {
-
-    let questionnn = document.createElement('div')
-
-    questionnn.addEventListener('click', onchoice3)
-
-    questionnn.innerHTML = `
-
-     <button class="btn">${questions[2].choices[i]}</button>
-
-     <hr>
-     `
-    document.getElementById('answer').append(questionnn)
-
+function checkForEnter(event) {
+  // "13" represents the enter key
+  if (event.key === "Enter") {
+    saveHighscore();
   }
 }
-function next3question() {
 
-  document.getElementById('answer').innerHTML = ""
-
-  document.getElementById('questions').innerHTML = "";
-
-  document.getElementById('questions').append(questions[3].title);
-
-
-  for (let i = 0; i < questions[3].choices.length; i++) {
-
-    let questionnn = document.createElement('div')
-
-    questionnn.addEventListener('click', onchoice4)
-
-    questionnn.innerHTML = `
-
-     <button class="btn">${questions[3].choices[i]}</button>
-
-     <hr>
-     `
-    document.getElementById('answer').append(questionnn)
-
-  }
-}
 // starting the quiz when clicked on start button
 document.getElementById('start').addEventListener('click', event => {
 
@@ -233,4 +196,28 @@ document.getElementById('start').addEventListener('click', event => {
   newquiz()
 
 })
+// submitting score and name when clicked
+document.getElementById('submitscore').addEventListener('click', event => {
 
+  let name = initialbox.value
+
+  // make sure value wasn't empty
+  if (name !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    let highscores =
+      JSON.parse(localStorage.getItem("highscores")) || [];
+
+    // format new score object for current user
+    let newScore = {
+      score: time,
+      name: name
+    };
+
+    // save to localstorage
+    highscores.push(newScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    // redirect to next page
+    window.location.href = "highscores.html";
+  }
+})
